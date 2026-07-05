@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hanken Grotesk", "Noto Serif SC", sans-serif;
+  --font-serif: "Newsreader", "Noto Serif SC", serif;
+  --font-mono: "DM Mono", monospace;
+  --font-cn: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+
+  --color-stage-bg: #111521;
+  --color-slide-bg: #f0ebde;
+  --color-paper: #f0ebde;
+  --color-paper-2: #fffaf0;
+  --color-ink: #1f2be0;
+  --color-ink-soft: #5964e6;
+  --color-text-main: #171712;
+  --color-muted: #676253;
+  --color-warm: #f5c75d;
+  --color-coral: #df6d60;
+  --color-green: #24735f;
+  
+  --color-line: rgba(31, 43, 224, 0.28);
+  --color-line-strong: rgba(31, 43, 224, 0.58);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@property --bg-x {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 86%;
+}
+@property --bg-y {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 15%;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--color-stage-bg);
+}
+
+.slide-bg {
+  background:
+    linear-gradient(rgba(31,43,224,0.105) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,43,224,0.105) 1px, transparent 1px),
+    radial-gradient(circle at var(--bg-x, 86%) var(--bg-y, 15%), rgba(245,199,93,0.30), transparent 400px),
+    var(--color-paper);
+  background-size: 54px 54px, 54px 54px, auto, auto;
+  animation: ambient-drift 20s infinite alternate cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes ambient-drift {
+  0% { --bg-x: 84%; --bg-y: 12%; }
+  100% { --bg-x: 88%; --bg-y: 18%; }
+}
+
+.video-window-bg {
+  background:
+    linear-gradient(rgba(31,43,224,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,43,224,0.12) 1px, transparent 1px),
+    rgba(255,250,240,0.76);
+  background-size: 36px 36px;
+}
+
+/* Reveal Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(12px);
+  transition:
+    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+.active .reveal {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.active .delay-1 { transition-delay: 150ms; }
+.active .delay-2 { transition-delay: 300ms; }
+.active .delay-3 { transition-delay: 450ms; }
+.active .delay-4 { transition-delay: 600ms; }
